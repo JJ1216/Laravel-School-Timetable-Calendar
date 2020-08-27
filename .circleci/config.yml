@@ -49,7 +49,7 @@ jobs:
       # prepare the database
       - run:
           name: Mysql database
-          command: mysql  -h 127.0.0.1 -u root -e "create database laravel;"
+          command: mysql -e "create database laravel;"
 
       - run: php artisan key:generate
       - run: php artisan db:seed --force
