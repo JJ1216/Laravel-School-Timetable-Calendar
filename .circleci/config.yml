@@ -65,24 +65,22 @@ jobs:
       - run: sudo docker-php-ext-install zip
       
       - run: sudo composer self-update
-      - run: composer install -n --ignore-platform-reqs      
-      #- restore_cache:
-       #   keys:
-          # "composer.lock" can be used if it is committed to the repo
-       #   - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-       #   - v1-dependencies-
+     # - run: composer install -n --ignore-platform-reqs      
+      - restore_cache:
+          keys:
+            # "composer.lock" can be used if it is committed to the repo
+            - v1-dependencies-{{ checksum "composer.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
-      #- run: composer install -n --prefer-dist
+      - run:
+          name: "Install Dependencies"
+          command: composer install -n --prefer-dist
 
-      #- save_cache:
-       #   key: composer-v1-{{ checksum "composer.lock" }}
-       #   paths:
-        #    - vendor
-
-      #- restore_cache:
-        #  key: dependency-cache-{{ checksum "package.json" }}
-       
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
       - run:
           name: Install NodeJS Packages
           command: npm install
