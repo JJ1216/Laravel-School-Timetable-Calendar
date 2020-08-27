@@ -4,8 +4,8 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.3.3-fpm-node
-      - image: circleci/mysql:5.7-ram
-        #command: [--default-authentication-plugin=mysql_native_password]
+      - image: circleci/mysql:8.0-ram
+        command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_DATABASE: laravel
           MYSQL_HOST: 127.0.0.1
@@ -50,6 +50,12 @@ jobs:
             - node_modules
             - ~/.yarn
       - run: composer dump-autoload
+      
+      - run: 
+          name: Generate Database
+          command: | 
+            mysql -e "CREATE DATABASE laravel character set utf8mb4 collate utf8mb4_bin;"
+            mysql_upgrade -u root
     
       - run: php artisan key:generate
       - run: php artisan db:seed --force
