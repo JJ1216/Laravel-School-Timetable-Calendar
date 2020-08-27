@@ -49,7 +49,7 @@ jobs:
       # prepare the database
       - run:
           name: Mysql database
-          command: mysql -h 127.0.0.1 -u root -e "CREATE DATABASE laravel
+          command: mysql -h 127.0.0.1 -u root -e "CREATE DATABASE laravel character set utf8mb4 collate utf8mb4_bin;"
 
       - run: php artisan key:generate
       - run: php artisan db:seed --force
