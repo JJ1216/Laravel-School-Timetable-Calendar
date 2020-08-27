@@ -62,8 +62,11 @@ jobs:
           command: php artisan dusk:install
      # - run: ./vendor/bin/phpcs --standard=PSR2 app/
       - run:
+          name: Install Chrome Driver
+          command: php artisan dusk:chrome-driver
+      - run:
           name: Start Chrome Driver
-          command: ./vendor/laravel/dusk/bin/chromedriver-linux --port=8888
+          command: ./vendor/laravel/dusk/bin/chromedriver-linux 
           background: true
 
       - run:
