@@ -27,7 +27,6 @@ jobs:
           name: Install MySQL CLI
           command: |
             sudo apt-get install default-mysql-client
-            mysql  -h 127.0.0.1 -u root -e "create database laravel;"
       
       #https://askubuntu.com/questions/594656/how-to-install-the-latest-versions-of-nodejs-and-npm
       #We are using Node JS 6 because that's the current version on our local vagrant/homestead machines
