@@ -64,6 +64,9 @@ jobs:
       - run:
           name: Install Chrome Driver
           command: php artisan dusk:chrome-driver
+          
+      - run: php artisan dusk:update
+      
       - run:
           name: Start Chrome Driver
           command: ./vendor/laravel/dusk/bin/chromedriver-linux 
