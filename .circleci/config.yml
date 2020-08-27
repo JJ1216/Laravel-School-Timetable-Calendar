@@ -7,17 +7,24 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.0-browsers
-      - image: circleci/mysql:8.0.4
         environment:
-          MYSQL_ROOT_PASSWORD: 
-          MYSQL_DATABASE: laravel
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_DB: laravel
           MYSQL_USER: root
-          MYSQL_PASSWORD: 
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD:
+      - image: mysql:5.7
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+        environment:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+
+    working_directory: ~/laravel 
 
     steps:
       - checkout
       - run:
-          name: Install MySQL CLI; Import dummy data; run an example query
+          name: Install MySQL CLI
           command: |
             sudo apt-get install default-mysql-client
             mysql  -h 127.0.0.1 -u root -e "create database laravel;"
