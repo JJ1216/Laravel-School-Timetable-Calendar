@@ -60,7 +60,11 @@ jobs:
       - run:
          name: Setup Laravel testing environment variables for CircleCI test
          command: cp .env.example .env
-
+         
+      - run: sudo docker-php-ext-install zip
+      
+      - run: sudo composer self-update
+            
       - restore_cache:
           keys:
             - composer-v1-{{ checksum "composer.lock" }}
