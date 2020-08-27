@@ -6,12 +6,7 @@ jobs:
       - image: circleci/php:7.3.3-fpm-node
       - image: circleci/mysql:5.7-ram
         #command: [--default-authentication-plugin=mysql_native_password]
-        environment:
-          MYSQL_DATABASE: laravel
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_USER: root
-          MYSQL_PASSWORD: 
+
     steps:
       - checkout
       - run:
