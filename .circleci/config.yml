@@ -53,8 +53,13 @@ jobs:
     
       - run: php artisan key:generate
       - run: php artisan migrate --seed
-      - run: composer require --dev laravel/dusk
-      - run: php artisan dusk:install
+      - run:
+          name: Require Dusk
+          command: composer require --dev laravel/dusk
+          
+      - run:
+          name: Install Dusk
+          command: php artisan dusk:install
      # - run: ./vendor/bin/phpcs --standard=PSR2 app/
       - run:
           name: Run Laravel Server
