@@ -56,13 +56,18 @@ jobs:
       #- run:
       #   name: Install zip package for PHP
       #   command: sudo docker-php-ext-install zip
-
+      - run:
+         name: "Prepare Environment"
+         command: |
+            sudo apt update
+            sudo docker-php-ext-install zip
+            
       - run:
          name: Setup Laravel testing environment variables for CircleCI test
          command: cp .env.example .env
-         
+            
       - run: sudo apt-get install -y libsqlite3-dev   
-      - run: sudo docker-php-ext-install zip
+     # - run: sudo docker-php-ext-install zip
       
       - run: sudo composer self-update
      # - run: composer install -n --ignore-platform-reqs      
