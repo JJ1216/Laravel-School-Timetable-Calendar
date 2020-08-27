@@ -63,7 +63,7 @@ jobs:
      # - run: ./vendor/bin/phpcs --standard=PSR2 app/
       - run:
           name: Start Chrome Driver
-          command: ./vendor/laravel/dusk/bin/chromedriver-linux
+          command: ./vendor/laravel/dusk/bin/chromedriver-linux --port=8888
           background: true
 
       - run:
