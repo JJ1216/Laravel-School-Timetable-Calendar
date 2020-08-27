@@ -7,8 +7,20 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.0-browsers
+          environment:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_DB: laravel
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD:
+      - image: mysql:5.7
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
+        environment:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
     working_directory: ~/laravel
     steps:
+      - sudo apt install -y mysql-client
       - checkout
 
       #https://askubuntu.com/questions/594656/how-to-install-the-latest-versions-of-nodejs-and-npm
@@ -42,7 +54,7 @@ jobs:
 
       - run:
          name: Setup Laravel testing environment variables for CircleCI test
-         command: cp .env.testing .env
+         command: cp .env.example .env
 
       - run:
          name: Update composer to latest version
@@ -69,12 +81,12 @@ jobs:
             - ./node_modules
 
       - run:
-         name: Create SQLite Database
-         command: touch database/database.sqlite
+          name: Mysql database
+          command: mysql  -h 127.0.0.1 -u root -e "create database laravel;"
 
       - run:
          name: Migrate Laravel Database
-         command: php artisan migrate --env=testing --force
+         command: php artisan migrate --seed 
 
       - run:
          name: Compile Javascript & CSS for Browser Testing
