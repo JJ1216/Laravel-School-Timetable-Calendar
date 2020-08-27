@@ -52,7 +52,7 @@ jobs:
           command: mysql -h 127.0.0.1 -P 3306 -u root -e "CREATE DATABASE laravel" 
     
       - run: php artisan key:generate
-      - run: php artisan db:seed --force
+      - run: php artisan migrate --seed 
       - run: ./vendor/bin/phpcs --standard=PSR2 app/
       - run:
           name: Run Laravel Server
