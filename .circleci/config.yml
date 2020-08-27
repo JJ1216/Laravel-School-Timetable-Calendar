@@ -61,14 +61,14 @@ jobs:
           name: Install Dusk
           command: php artisan dusk:install
      # - run: ./vendor/bin/phpcs --standard=PSR2 app/
-       - run:
+      - run:
           name: Start Chrome Driver
           command: ./vendor/laravel/dusk/bin/chromedriver-linux
           background: true
 
       - run:
           name: Run Laravel Server
-          command: php artisan serve &
+          command: php artisan serve 
           background: true
       - run:
           name: Run Laravel Dusk Tests
