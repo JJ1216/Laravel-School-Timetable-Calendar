@@ -61,12 +61,11 @@ jobs:
           name: Install Dusk
           command: php artisan dusk:install
      # - run: ./vendor/bin/phpcs --standard=PSR2 app/
-      - run: 
-          name: Upgrade Chrome Driver
-          command: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1
-      - run:
+       - run:
           name: Start Chrome Driver
-          command: ./vendor/laravel/dusk/bin/chromedriver-linux &
+          command: ./vendor/laravel/dusk/bin/chromedriver-linux
+          background: true
+
       - run:
           name: Run Laravel Server
           command: php artisan serve &
