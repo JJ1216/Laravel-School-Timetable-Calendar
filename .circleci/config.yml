@@ -4,7 +4,7 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.3.3-fpm-node
-      - image: circleci/mysql:5.7
+      - image: circleci/mysql:5.7-ram
         #command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_DATABASE: laravel
@@ -23,7 +23,6 @@ jobs:
       - run: sudo -E docker-php-ext-install pdo pdo_mysql
       - run: sudo -E docker-php-ext-install bcmath && sudo docker-php-ext-enable bcmath
       - run: sudo apt install -y mysql-client
-      #- run: sudo apt-get install -i mysql-client
 
       # composer cache
       - restore_cache:
@@ -52,7 +51,7 @@ jobs:
       # prepare the database
       - run:
           name: Mysql database
-          command: mysql -h 127.0.0.1 -u root -e "CREATE DATABASE laravel character set utf8mb4 collate utf8mb4_bin;"
+          command: mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE laravel character set utf8mb4 collate utf8mb4_bin;"
 
       - run: php artisan key:generate
       - run: php artisan db:seed --force
