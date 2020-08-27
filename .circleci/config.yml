@@ -1,0 +1,35 @@
+version: 2
+jobs:
+    build:
+        steps:
+            - run: sudo apt-get install -y libsqlite3-dev
+            - run: cp .env.example .env
+            - run: composer install -n --ignore-platform-reqs
+            - run: php artisan key:generate
+            - run: php artisan dusk:chrome-driver
+            - run: npm install
+            - run: npm run production
+            - run: vendor/bin/phpunit
+
+            - run:
+                name: Start Chrome Driver
+                command: ./vendor/laravel/dusk/bin/chromedriver-linux
+                background: true
+
+            - run:
+                name: Run Laravel Server
+                command: php artisan serve
+                background: true
+
+            - run:
+                name: Run Laravel Dusk Tests
+                command: php artisan dusk
+
+            - store_artifacts:
+                path: tests/Browser/screenshots
+
+            - store_artifacts:
+                path: tests/Browser/console
+
+            - store_artifacts:
+                path: storage/logs
