@@ -63,6 +63,24 @@ jobs:
       - run:
           name: Install Chrome Driver
           command: php artisan dusk:chrome-driver
+      - run:
+          name: Install Google Chrome
+          command: |
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+            sudo apt-get update && sudo apt-get install -y google-chrome-stable
+            sudo apt-get install -y xvfb
+            sudo apt-get -qyy install dbus-x11
+            # entry.sh
+            sudo rm -f /var/lib/dbus/machine-id
+            sudo mkdir -p /var/run/dbus
+            sudo service dbus restart
+            service dbus status
+            export $(dbus-launch)
+            export NSS_USE_SHARED_DB=ENABLED
+            echo "-- INFO: DBUS_SESSION_BUS_ADDRESS=${DBUS_SESSION_BUS_ADDRESS}"
+            #=> e.g. DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-APZO4BE4TJ,guid=6e9c098d053d3038cb0756ae57ecc885
+            echo "-- INFO: DBUS_SESSION_BUS_PID=${DBUS_SESSION_BUS_PID}"
 
       - run:
           name: Start Chrome Driver
