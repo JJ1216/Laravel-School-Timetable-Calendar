@@ -6,7 +6,9 @@ jobs:
       - image: circleci/php:7.3.3-fpm-node
       - image: circleci/mysql:5.7-ram
         #command: [--default-authentication-plugin=mysql_native_password]
-
+    orbs:
+      browser-tools: circleci/browser-tools@1.0.1
+      
     steps:
       - checkout
       - run:
@@ -61,6 +63,8 @@ jobs:
           name: Install Dusk
           command: php artisan dusk:install
      # - run: ./vendor/bin/phpcs --standard=PSR2 app/
+      - run: browser-tools/install-chrome
+      - run: browser-tools/install-chromedriver  
       - run:
           name: Install Chrome Driver
           command: php artisan dusk:chrome-driver
