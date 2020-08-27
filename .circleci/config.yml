@@ -82,10 +82,7 @@ jobs:
 
       #- restore_cache:
         #  key: dependency-cache-{{ checksum "package.json" }}
-      dependencies:
-        override:
-          - composer install --no-interaction  
-        
+       
       - run:
           name: Install NodeJS Packages
           command: npm install
