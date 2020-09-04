@@ -3,9 +3,9 @@
 Demo-project showing how to use roles-permissions (students, teachers, admins), Eloquent Query Scopes and how to build a simple table-based timetable calendar without any JavaScript plugin.
 
 - - - - -----
-Hi there
-Bye
-hi
+YC HERE
+JJ 
+
 ## Screenshots 
 
 ![Laravel School Timetable Calendar](https://quickadminpanel.com/blog/wp-content/uploads/2020/02/Screen-Shot-2020-02-18-at-10.18.36-AM.png)
